@@ -20,7 +20,7 @@ const ptSerif = PT_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Personal portfolio of gaurav cherwal - ai ops and backend systems",
+  title: "gaurav cherwal - ai'ops/linux/backend",
   description: "Portfolio of an AI/backend engineer focused on reliable production systems.",
 };
 
