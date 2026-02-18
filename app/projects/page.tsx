@@ -6,11 +6,13 @@ const projects = [
     description:
       "AI-powered LSP diagnostic explanations plugin for neovim. Get intelligent explanations of compiler errors and warnings directly in your editor, with actionable suggestions for fixes and improvements.",
     githubUrl: "https://github.com/gaurav219/lsp_explain.nvim",
+    stack: ["go", "lua", "language server protocol", "openrouter", "redis", "neovim", "linux"],
   },
   {
     title: "refracto",
     description: "An agentic, ticket-driven code generation assistant built for SAP's CAP (Cloud Application Programming) projects.",
     githubUrl: "https://github.com/gaurav219/refracto1",
+    stack: ["java", "CAP", "model context protocol", "rag", "prompt/context engineering", "qdrant"],
   },
 ];
 
@@ -33,6 +35,16 @@ export default function ProjectsPage() {
             >
               View on GitHub
             </Link>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.stack.map((item) => (
+                <span
+                  key={item}
+                  className="rounded border border-[#2f503f] bg-[#101917] px-2.5 py-1 font-mono text-xs text-[#bdd7c9]"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
           </article>
         ))}
       </section>

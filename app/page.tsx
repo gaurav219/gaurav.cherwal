@@ -4,12 +4,14 @@ const projects = [
   {
     name: "lsp_explain.nvim",
     description: "ai-powered LSP diagnostic explanations for neovim - get intelligent explanations of compiler errors and warnings directly in your editor, with actionable suggestions for fixes and improvements.",
-    github: "https://github.com/gaurav219/lsp_explain.nvim"
+    github: "https://github.com/gaurav219/lsp_explain.nvim",
+    stack: ["go", "lua", "language server protocol", "openrouter", "redis", "neovim", "linux"]
   },
   {
     name: "refracto",
     description: "retrieval pipeline with cache-aware context assembly and response guardrails.",
-    github: "https://github.com/gaurav219/Refracto1"
+    github: "https://github.com/gaurav219/Refracto1",
+    stack: ["java", "python", "gen-ai", "goose (mcp)", "model context protocol", "rag", "prompt/context engineering", "qdrant"]
   },
 ];
 
@@ -25,6 +27,8 @@ const stack = [
   "aws (s3, lambda, api gateway)",
   "postgresql",
   "redis/memcached",
+  "cassandra",
+  "cockroachdb",
   "docker",
   "kubernetes",
   "linux",
@@ -69,15 +73,27 @@ export default function HomePage() {
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           <section className="rounded-xl border border-[#1f2b25] bg-[#0d1312] p-5">
             <p className="font-mono text-xs text-[#7ea58f]">gaurav@portfolio:~$ ls projects/</p>
+            <div className="mt-4 flex flex-wrap gap-2">
             <ul className="mt-4 space-y-4">
               {projects.map((project) => (
                 <li key={project.name} className="border-l border-[#2f503f] pl-4">
                   <p className="<<<font-mono text-sm text-[#c6f6d5]">{project.name}</p>
                   <p className="mt-1 text-sm text-[#a8b8af]">{project.description}</p>
                   <Link href={project.github} className="mt-1 text-xs font-semibold text-[#8ad69f]">view on github</Link>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {project.stack.map((item) => (
+                      <span
+                        key={item}
+                        className="rounded border border-[#2f503f] bg-[#101917] px-2.5 py-1 font-mono text-xs text-[#bdd7c9]"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </li>
               ))}
             </ul>
+            </div>
           </section>
 
           <section className="rounded-xl border border-[#1f2b25] bg-[#0d1312] p-5">
