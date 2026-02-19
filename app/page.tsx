@@ -42,7 +42,7 @@ export default function HomePage() {
     <main className="min-h-screen bg-[#0b0f10] text-[#d7e3db]">
       <section className="mx-auto max-w-5xl px-6 py-14 md:py-20">
         <div className="rounded-xl border border-[#1f2b25] bg-[#0d1312] p-5 shadow-[0_0_0_1px_rgba(70,119,90,0.15)]">
-          <p className="font-mono text-xs text-[#7ea58f]">gaurav@portfolio:~$ whoami</p>
+          <p className="font-mono text-xs text-[#7ea58f]">gaurav@archive:~$ whoami</p>
           <h1 className="mt-3 font-mono text-3xl font-semibold text-[#c6f6d5] md:text-5xl">hi! I&apos;m gaurav cherwal</h1>
           <p className="mt-4 max-w-3xl text-base text-[#a8b8af] md:text-lg">
             agentic ai ops - building production ai systems while focussing on distributed systems.
@@ -72,7 +72,7 @@ export default function HomePage() {
 
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           <section className="rounded-xl border border-[#1f2b25] bg-[#0d1312] p-5">
-            <p className="font-mono text-xs text-[#7ea58f]">gaurav@portfolio:~$ ls projects/</p>
+            <p className="font-mono text-xs text-[#7ea58f]">gaurav@archive:~$ ls projects/</p>
             <div className="mt-4 flex flex-wrap gap-2">
             <ul className="mt-4 space-y-4">
               {projects.map((project) => (
@@ -97,7 +97,7 @@ export default function HomePage() {
           </section>
 
           <section className="rounded-xl border border-[#1f2b25] bg-[#0d1312] p-5">
-            <p className="font-mono text-xs text-[#7ea58f]">gaurav@portfolio:~$ cat stack.txt</p>
+            <p className="font-mono text-xs text-[#7ea58f]">gaurav@archive:~$ cat stack.txt</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {stack.map((item) => (
                 <span
@@ -109,7 +109,7 @@ export default function HomePage() {
               ))}
             </div>
 
-            <p className="mt-6 font-mono text-xs text-[#7ea58f]">gaurav@portfolio:~$ status</p>
+            <p className="mt-6 font-mono text-xs text-[#7ea58f]">gaurav@archive:~$ status</p>
             <p className="mt-2 text-sm text-[#a8b8af]">
               curious on securing ai systems with strict kernel level sandboxing architecture.
             </p>

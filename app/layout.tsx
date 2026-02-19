@@ -21,7 +21,7 @@ const ptSerif = PT_Serif({
 
 export const metadata: Metadata = {
   title: "gaurav cherwal - ai'ops/linux/backend",
-  description: "Portfolio of an AI/backend engineer focused on reliable production systems.",
+  description: "archive of an ai/backend engineer focused on reliable production systems.",
 };
 
 const navItems = [
@@ -43,7 +43,7 @@ export default function RootLayout({
           <header className="sticky top-0 z-50 border-b border-[#1f2b25] bg-[#0d1312]/95 backdrop-blur">
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:px-8">
               <Link href="/" className="font-mono text-sm font-semibold tracking-wide text-[#c6f6d5]">
-                gaurav@portfolio:~$
+                gaurav@archive:~$
               </Link>
               <nav className="flex items-center gap-5 font-mono text-sm text-[#a8b8af]">
                 {navItems.map((item) => (
