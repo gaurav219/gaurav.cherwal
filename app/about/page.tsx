@@ -93,6 +93,37 @@ LLM reasoning.</li>
       </section>
 
       <section className="mt-8 rounded-xl border border-[#1f2b25] bg-[#0d1312] p-6 md:p-8">
+        <h2 className="text-3xl font-semibold">open-source contributions</h2>
+          <li className="mt-6 text-slate-300">
+            <p>
+              <span className="font-semibold text-[#9fe6b9] text-lg md:text-xl">git-scm.com</span>
+            </p>
+            <ul className="mt-2 space-y-2">
+              <li>
+              contributed to the git_scm website for few front-end rendering changes and technical documentation for new git release so
+it would follow dynamic URL’s.
+              </li>
+              <li>change set was reviewed and merged into main.</li>
+            </ul>
+          </li>
+          <li className="mt-4 text-slate-300">
+            <p>
+              <span className="font-semibold text-[#9fe6b9] text-lg md:text-xl">teleport</span>
+            </p>
+            <ul className="mt-2 space-y-2">
+              <li>
+                updated teleport&apos;s cli flow to bypass login prompts in piped scenarios, preventing prompt
+                text from corrupting command output streams.
+              </li>
+              <li>
+                improved cli ux by preserving auto-login for interactive terminals while requiring explicit
+                pre-authentication for scripted or piped executions, like standard cli behavior.
+              </li>
+            </ul>
+          </li>
+      </section>
+
+      <section className="mt-8 rounded-xl border border-[#1f2b25] bg-[#0d1312] p-6 md:p-8">
         <h2 className="text-3xl font-semibold">education</h2>
         <li className="mt-6 text-slate-300">
           <span className="font-semibold text-[#9fe6b9] text-lg md:text-xl">University of California, Irvine</span> <span className="italic text-slate-400">(Master of Computer Science, specialization in Software Systems and AI)</span>
@@ -109,11 +140,11 @@ LLM reasoning.</li>
 
       <section className="mt-8 grid gap-7">
         <article className="rounded-xl border border-[#1f2b25] bg-[#0d1312] p-6 md:p-8">
-          <h2 className="text-2xl font-semibold">Other interest areas</h2>
+          <h2 className="text-2xl font-semibold">other interest areas</h2>
           <ul className="mt-4 space-y-3 text-slate-300">
-            <li>Linux Kernel and driver development</li>
+            <li>linux kernel and driver development</li>
             <li>eBPF and perf performance tools</li>
-            <li>Trying to make OpenClaw more secure at systems level event capturing.</li>
+            <li>Trying to make openclaw more secure at systems level event capturing.</li>
             <li>ways to improve context engineering for modern llm&apos;s.</li>
           </ul>
         </article>

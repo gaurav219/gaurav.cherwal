@@ -115,6 +115,32 @@ export default function HomePage() {
             </p>
           </section>
         </div>
+
+        <section className="mt-8 rounded-xl border border-[#1f2b25] bg-[#0d1312] p-5">
+          <p className="font-mono text-xs text-[#7ea58f]">gaurav@archive:~$ cat open-source.txt</p>
+          <ul className="mt-4 space-y-4 text-[#a8b8af]">
+            <li className="border-l border-[#2f503f] pl-4">
+              <p className="font-mono text-sm text-[#c6f6d5]">git-scm.com</p>
+              <ul className="mt-2 space-y-2 text-sm">
+                <li>
+                  contributed to the git_scm website for few front-end rendering changes and technical documentation for new git release so it would follow dynamic URL&apos;s.
+                </li>
+                <li>change set was reviewed and merged into main.</li>
+              </ul>
+            </li>
+            <li className="border-l border-[#2f503f] pl-4">
+              <p className="font-mono text-sm text-[#c6f6d5]">teleport</p>
+              <ul className="mt-2 space-y-2 text-sm">
+                <li>
+                  updated teleport&apos;s cli flow to bypass login prompts in piped scenarios, preventing prompt text from corrupting command output streams.
+                </li>
+                <li>
+                  improved cli ux by preserving auto-login for interactive terminals while requiring explicit pre-authentication for scripted or piped executions, like standard cli behavior.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
       </section>
     </main>
   );
