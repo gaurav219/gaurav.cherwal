@@ -1,0 +1,56 @@
+export const metadata = {
+  title: "How Cilium Routes Traffic in Kubernetes",
+  date: "2026-03-03",
+  excerpt:
+    "A practical walkthrough of packet flow in Kubernetes with Cilium and eBPF.",
+  readTime: "5 min read",
+};
+
+I was always curious about how linux networking works which made me delve deep into container networking fundamentals down to systems level.
+
+Recently, I was exploring how Cilium changes Kubernetes networking using eBPF (which changed so many things in modern systems), and the packet flow inside a cluster is actually quite interesting.
+
+How a client's request to a service in our Kubernetes Cluster will proceed:
+
+- The request reaches the Kubernetes Service (ClusterIP) which ,in an essence, is a virtual IP that represents a group of pods.
+
+- The packet then reaches one of the cluster nodes.
+  Usually kube-proxy would translate the service IP to a pod IP using iptables rules (which formed large rule chains).
+
+- With Cilium, it's way more refined and optimized.
+  Cilium runs as an agent on every node and handles networking at the node level.
+  Instead of iptables, it attaches eBPF programs directly into the Linux kernel networking path.
+
+- The eBPF program performs service load balancing to route the request to correct route.
+  It selects one of the pods behind the service and forwards the packet.
+
+- The pod already has its own IP address.
+  The Container Network Interface (CNI) plugin will assign it an IP from the node’s pod network range for the pod so that every pod can communicate with every other pod inside the cluster.
+
+A fundamental rule of Kubernetes networking is that every pod must be able to communicate with every other pod using its IP address, without any form of network address translation.
+
+In other words -
+
+> The source IP of a packet sent by a pod must be visible, unmodified, at the destination pod.
+>
+> The destination pod must be reachable directly by its pod IP, not by a translated node IP or service address.
+
+What’s really amusing is that this whole routing stuff happens inside the kernel, without walking through long chains of iptables rules.
+
+Why does that matter?
+
+At scale, clusters can end up with thousands of iptables rules.
+Handling service routing with eBPF avoids those chains and keeps packet processing efficient (due to hash based eBPF Maps).
+
+That’s one of the reasons many production clusters are moving toward Cilium-based networking.
+
+I still have a lot to learn about this but really interested in what comes next. 🫡
+
+<div
+  style={{
+    color: "#22c55e",
+    textShadow: "0 0 6px rgba(34,197,94,0.75), 0 0 14px rgba(34,197,94,0.5)",
+  }}
+>
+  #networking #cilium #linux #eBPF #namespaces #containerization
+</div>
