@@ -1,18 +1,18 @@
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug } from "@/lib/posts";
+import { getAllPosts, getPostByUid } from "@/lib/posts";
 
 type BlogPostParams = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ uid: string }>;
 };
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return posts.map((post) => ({ uid: post.uid }));
 }
 
 export default async function BlogPostPage({ params }: BlogPostParams) {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const { uid } = await params;
+  const post = await getPostByUid(uid);
 
   if (!post) {
     notFound();

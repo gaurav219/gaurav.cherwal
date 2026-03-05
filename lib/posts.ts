@@ -1,8 +1,17 @@
 import { readdir } from "node:fs/promises";
 import path from "node:path";
 
+type BlogPostFrontmatter = {
+  uid: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  readTime: string;
+};
+
 export type BlogPostMeta = {
   slug: string;
+  uid: string;
   title: string;
   date: string;
   excerpt: string;
@@ -11,7 +20,7 @@ export type BlogPostMeta = {
 
 type BlogPostModule = {
   default: React.ComponentType;
-  metadata?: BlogPostMeta;
+  metadata?: BlogPostFrontmatter;
 };
 
 const POSTS_DIR = path.join(process.cwd(), "content", "blog");
@@ -25,20 +34,30 @@ async function getPostSlugs() {
 }
 
 async function loadPostModule(slug: string): Promise<BlogPostModule | null> {
+  const modulePath = `@/content/blog/${slug}.mdx`;
+
   try {
-    return (await import(`@/content/blog/${slug}.mdx`)) as BlogPostModule;
+    const postModule = (await import(modulePath)) as BlogPostModule;
+    return postModule;
   } catch {
     return null;
   }
 }
 
-function fallbackMetaFromSlug(slug: string): BlogPostMeta {
+function buildMeta(slug: string, metadata?: BlogPostFrontmatter): BlogPostMeta {
+  if (!metadata) {
+    throw new Error(`Missing metadata export for blog post "${slug}"`);
+  }
+
+  const uid = metadata.uid.trim();
+  if (!uid) {
+    throw new Error(`Missing metadata.uid for blog post "${slug}"`);
+  }
+
   return {
+    ...metadata,
     slug,
-    title: slug.replace(/-/g, " "),
-    date: "1970-01-01",
-    excerpt: "",
-    readTime: "",
+    uid,
   };
 }
 
@@ -47,13 +66,20 @@ export async function getAllPosts(): Promise<BlogPostMeta[]> {
   const posts = await Promise.all(
     slugs.map(async (slug) => {
       const mod = await loadPostModule(slug);
-      if (!mod?.metadata) {
-        return fallbackMetaFromSlug(slug);
+      if (!mod) {
+        throw new Error(`Unable to load blog post module "${slug}"`);
       }
-
-      return { ...mod.metadata, slug };
+      return buildMeta(slug, mod?.metadata);
     }),
   );
+
+  const seenUids = new Set<string>();
+  for (const post of posts) {
+    if (seenUids.has(post.uid)) {
+      throw new Error(`Duplicate blog uid "${post.uid}" found (slug "${post.slug}")`);
+    }
+    seenUids.add(post.uid);
+  }
 
   return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
@@ -64,10 +90,20 @@ export async function getPostBySlug(slug: string) {
     return null;
   }
 
-  const metadata = mod.metadata ? { ...mod.metadata, slug } : fallbackMetaFromSlug(slug);
+  const metadata = buildMeta(slug, mod.metadata);
 
   return {
     Component: mod.default,
     metadata,
   };
+}
+
+export async function getPostByUid(uid: string) {
+  const posts = await getAllPosts();
+  const matchingPost = posts.find((post) => post.uid === uid);
+  if (!matchingPost) {
+    return null;
+  }
+
+  return getPostBySlug(matchingPost.slug);
 }
