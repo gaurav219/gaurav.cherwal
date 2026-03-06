@@ -1,0 +1,67 @@
+export const metadata = {
+  uid: "a19c4d7e2f8b",
+  title: "Thoughts on Agentic AI and Databases",
+  date: "2026-03-05",
+  excerpt: "concurrency, eventual consistency",
+  readTime: "4 min read",
+};
+
+I see a lot of posts around AI infra focusing on GPUs and ML models.
+
+But, i’ve been thinking about a database problem that might become (or maybe is already) much more visible as multi-agent systems grow.
+
+The issue could actually be the interaction between AI agents and datastores.
+
+A typical backend system was designed around a fairly simple flow:
+
+User -> API -> Database -> Response
+
+Though we can add layers for scaling, a system would minimally have these components.
+
+Multi-agent systems change the shape of this workload.
+
+One user prompt can fan out into:
+
+- 3-18 agents running in parallel
+- each agent executing multiple actions
+- each action reading or writing state (tasks, logs, memory, tool outputs)
+
+So instead of a few queries per request, one can easily end up with dozens or even hundreds of database operations triggered by a single prompt.
+And since agents do not behave like normal users, they retry tasks, run in parallel, and generate many small reads and writes.
+
+Now, one workaround could be:
+"Why not just coordinate the agents so they wait for each other?"
+
+And yes, orchestration layers, queues, and locks can help reduce agents stepping on each other's work.
+
+But even with coordination, the underlying pattern still remains: many concurrent reads and writes modify shared state (the source of truth for the agents).
+
+Another thought was around the eventual consistency model.
+
+Eventual consistency worked well for systems where users do not need immediate reflection of data.
+If the UI briefly shows stale data, most users will not notice.
+
+Agents react instantly to the data they read.
+
+With eventual consistency, if an agent reads stale data, it does not know that and will act on it.
+
+That can turn a small inconsistency into a chain reaction of incorrect decisions across multiple agents.
+
+Which makes me wonder if AI systems will push databases toward stronger guarantees:
+
+- more predictable reads
+- stronger consistency models
+- safer behavior under heavy concurrency
+
+Curious how others are thinking about this.
+
+Evolution of databases for agents is the next step, or is something else in line?
+
+<div
+  style={{
+    color: "#22c55e",
+    textShadow: "0 0 6px rgba(34,197,94,0.75), 0 0 14px rgba(34,197,94,0.5)",
+  }}
+>
+  #distributedsystems #concurrency #agenticai #scalability #evolutionofdb
+</div>
