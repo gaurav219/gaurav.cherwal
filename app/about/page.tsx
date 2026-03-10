@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <main className="mx-auto min-h-screen max-w-6xl px-6 py-16 font-sans text-slate-100 md:py-24">
+    <main className="mx-auto min-h-screen max-w-6xl px-4 sm:px-6 py-16 font-sans text-slate-100 md:py-24">
       <section className="rounded-2xl border border-[#1f2b25] bg-[#0d1312] p-8 md:p-12">
         <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#7ea58f]">about me</p>
         <h3 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight md:text-4xl">

@@ -22,7 +22,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
   const { title, excerpt, date, readTime } = post.metadata;
 
   return (
-    <main className="mx-auto min-h-screen max-w-3xl px-6 py-20 text-slate-100">
+    <main className="mx-auto min-h-screen max-w-3xl px-4 sm:px-6 py-20 text-slate-100">
       <header className="mb-10">
         <p className="text-xs uppercase tracking-[0.15em] text-slate-400">
           {date} {readTime ? `· ${readTime}` : ""}

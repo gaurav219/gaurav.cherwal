@@ -18,7 +18,7 @@ const projects = [
 
 export default function ProjectsPage() {
   return (
-    <main className="mx-auto min-h-screen max-w-5xl px-6 py-16 text-slate-100 md:py-20">
+    <main className="mx-auto min-h-screen max-w-5xl px-4 sm:px-6 py-16 text-slate-100 md:py-20">
       <h1 className="font-mono text-4xl font-semibold text-[#c6f6d5]">projects</h1>
       <p className="mt-4 text-slate-300">some of my current work on ai tooling and systems.</p>
 

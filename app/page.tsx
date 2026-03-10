@@ -40,7 +40,7 @@ const stack = [
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#0b0f10] text-[#d7e3db]">
-      <section className="mx-auto max-w-5xl px-6 py-14 md:py-20">
+      <section className="mx-auto max-w-5xl px-4 sm:px-6 py-14 md:py-20">
         <div className="rounded-xl border border-[#1f2b25] bg-[#0d1312] p-5 shadow-[0_0_0_1px_rgba(70,119,90,0.15)]">
           <p className="font-mono text-xs text-[#7ea58f]">gaurav@archive:~$ whoami</p>
           <h1 className="mt-3 font-mono text-3xl font-semibold text-[#c6f6d5] md:text-5xl">hi! I&apos;m gaurav cherwal</h1>
