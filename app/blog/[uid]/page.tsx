@@ -29,7 +29,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
         </p>
         <h1 className="mt-2 text-4xl font-semibold text-white">{title}</h1>
         {excerpt ? (
-          <p className="mt-4 rounded-r-md border-l-2 border-sky-400/70 bg-[#111a1d] px-4 py-3 text-sm italic leading-relaxed text-slate-200">
+          <p className="mt-4 rounded-r-md border-l-2 border-[#2f503f] bg-[#101917] px-4 py-3 text-sm italic leading-relaxed text-[#bdd7c9]">
             {excerpt}
           </p>
         ) : null}

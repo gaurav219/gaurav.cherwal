@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${jetBrainsMono.variable} overflow-x-hidden antialiased`}>
+      <body className={`${inter.variable} ${jetBrainsMono.variable} ${ptSerif.variable} overflow-x-hidden antialiased`}>
         <div className="min-h-screen bg-[#0b0f10] text-[#d7e3db]">
           <header className="sticky top-0 z-50 border-b border-[#1f2b25] bg-[#0d1312]/95 backdrop-blur">
             <div className="mx-auto flex min-h-16 max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:flex-nowrap sm:px-6 md:px-8">
