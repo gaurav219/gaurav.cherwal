@@ -31,6 +31,8 @@ const stack = [
   "cockroachdb",
   "docker",
   "kubernetes",
+  "cilium",
+  "eBPF",
   "linux",
   "shell scripting",
   "prometheus",
