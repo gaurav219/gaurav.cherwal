@@ -8,7 +8,7 @@ export const metadata = {
 
 ### A GPU sitting idle for a few seconds might not sound like a big deal.
 
-💸 At scale, it’s literally burning money.
+At scale, it’s literally burning money.
 
 Observability in AI infra at scale is a really interesting problem.
 
@@ -24,7 +24,7 @@ A few areas where observability becomes critical:
 
 AI workloads consume data very fast. If storage can’t supply data quickly enough, GPUs have to wait for the next batch.
 
-So monitoring 𝗿𝗲𝗮𝗱 𝘁𝗵𝗿𝗼𝘂𝗴𝗵𝗽𝘂𝘁 and 𝗜𝗢𝗣𝗦 becomes important to ensure the data pipeline keeps up with compute.
+So monitoring **read throughput** and **IOPS** becomes important to ensure the data pipeline keeps up with compute.
 
 ### Continuous Visibility
 
@@ -38,7 +38,7 @@ At the compute layer you want visibility into:
 
 GPU utilization, memory usage.
 
-These metrics are exposed using 𝗣𝗿𝗼𝗺𝗲𝘁𝗵𝗲𝘂𝘀 𝗲𝘅𝗽𝗼𝗿𝘁𝗲𝗿𝘀 (like NVIDIA’s DCGM exporter).
+These metrics are exposed using **Prometheus exporters** (like NVIDIA’s DCGM exporter).
 
 If GPU utilization suddenly drops, it usually means data loading or preprocessing can’t keep up.
 
