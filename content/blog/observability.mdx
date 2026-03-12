@@ -1,0 +1,95 @@
+export const metadata = {
+  uid: "f6b2c9a84d1e",
+  title: "Observability in AI Infra: It is important!",
+  date: "2026-03-11",
+  excerpt: "storage throughput, metadata latency, iops",
+  readTime: "5 min read",
+};
+
+### A GPU sitting idle for a few seconds might not sound like a big deal.
+
+💸 At scale, it’s literally burning money.
+
+Observability in AI infra at scale is a really interesting problem.
+
+GPUs are very pricey, and if they stay idle due to some hidden bottleneck somewhere in the pipeline, the cost shoots up high.
+
+So the challenge becomes:
+
+**"How do you maintain continuous visibility into the entire training or inference pipeline?"**
+
+A few areas where observability becomes critical:
+
+### Storage Throughput
+
+AI workloads consume data very fast. If storage can’t supply data quickly enough, GPUs have to wait for the next batch.
+
+So monitoring 𝗿𝗲𝗮𝗱 𝘁𝗵𝗿𝗼𝘂𝗴𝗵𝗽𝘂𝘁 and 𝗜𝗢𝗣𝗦 becomes important to ensure the data pipeline keeps up with compute.
+
+### Continuous Visibility
+
+Unlike typical backend services, we can’t afford to go “blind” in AI systems. A training run may take hours or days, and if something breaks midway, that’s a lot of wasted tokens.
+
+So observability needs to span multiple layers.
+
+#### **> GPU Metrics**
+
+At the compute layer you want visibility into:
+
+GPU utilization, memory usage.
+
+These metrics are exposed using 𝗣𝗿𝗼𝗺𝗲𝘁𝗵𝗲𝘂𝘀 𝗲𝘅𝗽𝗼𝗿𝘁𝗲𝗿𝘀 (like NVIDIA’s DCGM exporter).
+
+If GPU utilization suddenly drops, it usually means data loading or preprocessing can’t keep up.
+
+#### > **Data Pipeline Metrics**
+
+The data pipeline is actually a lot of times the hidden bottleneck.
+
+Some metrics to look for:
+
+• Data loader latency → time to fetch the next batch <br></br>
+• Batch preparation time → preprocessing, tokenization<br></br>
+• Queue depth → whether GPUs are waiting for data<br></br>
+• Dataset read throughput → speed of storage reads<br></br>
+
+If the queue empties, GPUs go idle.
+
+#### > **Network Metrics**
+
+In distributed training, GPUs communicate frequently, so network performance matters.
+
+Metrics:
+
+• RDMA latency → speed of direct node-to-node data transfer<br></br>
+• Packet drops → dropped packets cause retransmissions<br></br>
+• Communication retries → messages resent after failure<br></br>
+
+Even small network slowdowns increase training step time.
+
+#### > **Storage Metrics**
+
+And finally, the storage layer.
+
+Metrics to track:
+
+• Read throughput → speed of streaming data to training nodes<br></br>
+• IOPS → read/write operations per second<br></br>
+• File open latency → time taken to locate and open files<br></br>
+
+Datasets often contain millions of small files, and slow file operations can quietly become a major bottleneck.
+
+It&apos;s important to note that the <span style={{ color: "#ffffff", fontWeight: 400 ,textShadow: "0 0 6px rgba(255,255,255,0.75), 0 0 14px rgba(255,255,255,0.45)" }}>bottleneck isn&apos;t always the model or the GPUs.</span>
+
+Sometimes it’s storage, networking, data pipelines or simply lack of visibility on what's going on.
+
+And that’s where observability becomes just as important as compute.
+
+<div
+  style={{
+    color: "#22c55e",
+    textShadow: "0 0 6px rgba(34,197,94,0.75), 0 0 14px rgba(34,197,94,0.5)",
+  }}
+>
+  #observability #distributedsystems #aiops #gpu #cloudcompute
+</div>
