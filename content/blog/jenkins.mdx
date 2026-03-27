@@ -1,0 +1,105 @@
+export const metadata = {
+  uid: "c5a18e7d4b2f",
+  title: "Why does a 1M+ user app still take 20+ minutes to build",
+  date: "2026-03-27",
+  excerpt:
+    "iOS pipeline bottlenecks with parallelism, caching, right-sizing agents",
+  readTime: "4 min read",
+};
+
+### Why does a 1M+ user app still take 20+ minutes to build?
+
+#### Where does the time actually go in a slow pipeline?
+
+I&apos;ve been going deep on CI/CD lately, just out of genuine interest.
+
+I kept seeing similar themes in engineering discussions:
+
+- iOS builds are slow
+- Jenkins becomes painful at scale
+- where does the time actually go?
+
+So I started wondering, what does a 1M+ user iOS pipeline actually look like?
+
+And what really makes it faster?
+
+Usually, it boils down to:
+
+**Diagnose -> Parallelize -> Cache -> Scale**
+
+### Look at Stages Individually
+
+Almost every slow pipeline case study had the same pattern: the pipeline grew organically and did not measure which stage was the bottleneck.
+
+Dependency resolution can eat 10-15 minutes per build, and tests often run sequentially for no real reason.
+
+### Smart Caching Is Still Underutilized
+
+CocoaPods and SPM dependencies do not change between most commits, yet many pipelines re-resolve them every time.
+
+Caching them is low-risk with immediate payoff.
+
+Bonus: Xcode&apos;s Derived Data folder holds partially compiled code.
+
+Do not discard it every time and start from scratch.
+
+Cache it smartly and only changed files recompile.
+
+XCRemoteCache can cut iOS compilation by 50-60% alone.
+
+### Parallel Testing Is the Way
+
+There&apos;s no reason unit, integration, and UI tests have to run one after another.
+
+Parallel stages across agents, and multiple Xcode simulators running simultaneously, are well known ideas, but many teams still do not restructure their pipeline to actually use them.
+
+### Hardware Is More Nuanced Than "Just Get a Bigger Machine"
+
+This one was interesting.
+
+Xcode compilation is CPU-heavy.
+
+Large projects can push 16-32GB of RAM during a build.
+
+Disk I/O matters too because Derived Data is read and written constantly.
+
+Key insight:
+
+**High memory -> swap -> disk**
+
+Disk can look like the issue, but RAM is the root cause.
+
+Profile CPU, RAM, and disk at the same time.
+
+Right-sizing the agents means understanding which resource is actually the bottleneck.
+
+- Light (2-4 core / 4-8GB) -> linting and PR tasks
+- Standard (8-10 core / 12-16GB) -> tests and PR builds
+- Heavy (12-16 core / 32-40GB) -> clean builds and UI tests
+
+Jobs declare which tier they need via Jenkins node labels.
+
+Cheap jobs do not burn expensive agents.
+
+This alone can significantly reduce infrastructure cost at scale without touching build logic at all.
+
+### Final Takeaway
+
+Slow pipelines are rarely one big problem.
+
+They are usually small inefficiencies that added up because they were not measured and revisited.
+
+Also, these principles are not iOS- or Jenkins-specific.
+
+The same thinking applies anywhere at scale.
+
+Experimenting and learning.
+
+<div
+  style={{
+    color: "#22c55e",
+    textShadow: "0 0 6px rgba(34,197,94,0.75), 0 0 14px rgba(34,197,94,0.5)",
+  }}
+>
+  #jenkins #cicd #devops #ios #kubernetes #engineering #rightsizing
+</div>
