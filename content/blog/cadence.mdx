@@ -1,0 +1,64 @@
+export const metadata = {
+  uid: "e7c2a9d14f6b",
+  title: "Non-Determinism in Distributed Workflows",
+  date: "2026-04-08",
+  excerpt:
+    "cadence, workflow replay, why shadowing matters before failures hit production.",
+  readTime: "3 min read",
+};
+
+### "Your workflow just failed. 49,999 more are about to."
+
+How do you know beforehand what kind of issue can pop up in your workflow?
+
+it&apos;s a very serious infra problem in distributed systems.
+
+answer is: you don&apos;t. And that&apos;s the problem. :P
+
+Cadence was designed to handle distributed systems where one workflow could cause a domino effect to affect all dependent workflows which would be a disaster of course!
+
+How do you know what to prevent if you do not know what it is in the first place?
+
+That is non-determinism at high scale.
+
+The real solution is creating infrastructure that catches it before it hits production.
+
+From discussions with people directly involved in this:
+
+• **Workflow shadowing**
+→ re-runs previous workflows against new code to catch non-determinism
+
+• **Bad binary handling + workflow reset**
+→ if something still slips through, rollback affected workflows to a safe checkpoint
+These were crafted specifically for this
+
+The way it works is, Cadence, by itself, saves the entire event history of every workflow, every decision, every task completion, every event, every human approval that took days.
+
+If any issues occurs at any point, Cadence replays from exactly where it left off using that event history. You don't define checkpoints manually. The system handles it.
+
+### But Why Does Something Like Cadence Exist in the First Place?
+
+Say, when you write a DB query, you don't write the code to manage disk reads, cache invalidation, or transaction locks by yourself, the DB handles all of that. You just write the query.
+
+Cadence works like this but for workflows. You don't write retry logic, state persistence, or failure recovery. You just write the business logic "do this, then this, then this" and Cadence handles everything that can go wrong below it.
+
+Error handling, retry mechanism, state checkpoints to see where you left off, timeouts, monitoring stuck workflows, etc were needed to be handled manually if not done by Cadence.
+
+And the bigger motivation behind such a system could be to stop solving the same distributed systems problem 500 times across 500 teams, just solve it once, correctly, and let everyone build on top of it.
+
+Just like before OS existed, every program had to manage its own memory, CPU, and I/O directly. OS abstracted all of that away.
+
+Cadence is essentially an OS for distributed workflows, abstracting away the failure handling so devs can just write business logic.
+
+Focus on the workflow, not the plumbing.
+
+Wanna know more? Check out - [cadenceworkflow.io/blog](https://cadenceworkflow.io/blog)
+
+<div
+  style={{
+    color: "#22c55e",
+    textShadow: "0 0 6px rgba(34,197,94,0.75), 0 0 14px rgba(34,197,94,0.5)",
+  }}
+>
+  #cadence #uber #distributedsystems #nondeterminism #workflowfailures
+</div>
