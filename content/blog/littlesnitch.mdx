@@ -1,0 +1,80 @@
+import Image from "next/image";
+import littlesnitchImage from "./littlesnitch.png";
+
+export const metadata = {
+  uid: "b4d91e6a2c7f",
+  title: "eBPF-Based Network Visibility (LittleSnitch)",
+  date: "2026-04-10",
+  excerpt:
+    "A quick look at Little Snitch's Linux port which uses eBPF to observe network activity.",
+  readTime: "3 min read",
+};
+
+### Ever wondered what kind of network calls your applications make behind the scenes?
+
+It was always known that apps like VS Code, JetBrains IDEs, and even distributions like Ubuntu send telemetry(metrics, usage data, and diagnostics) back to their servers.
+
+Browsers do this too.
+
+Every time you visit a website, multiple background requests are made tracking, analytics, and ads.
+
+But how do you actually know **where your data is going?**
+
+And more importantly, how do you monitor it?
+
+On macOS, tools like _Little Snitch_ have existed for a long time.
+
+They let you see:  
+• which apps are making network requests  
+• where those requests are going  
+• and allow you to control them
+
+Recently, Little Snitch had a initial port to [Linux](https://obdev.at/products/littlesnitch-linux/index.html).
+
+<Image
+  src={littlesnitchImage}
+  alt="Little Snitch Linux interface preview"
+  className="my-6 mx-auto h-auto w-full max-w-3xl border-3 border-[#4d7a61] shadow-[0_0_14px_rgba(34,197,94,0.5)]"
+/>
+<div className="mt-2 text-center text-sm italic text-[#bdd7c9]">
+  Local runnning instance in my system
+</div>
+
+It’s not a full-fledged port yet.
+
+Instead, it’s using **eBPF**, which hooks into the Linux kernel to observe network activity.
+
+Because of this, the Linux version is still limited compared to macOS, but the underlying approach is quite interesting.
+
+The architecture is fairly simple:
+
+• `ebpf` (Rust crate) - contains eBPF programs \
+• `common` - shared types between kernel and user space \
+• `demo-runner` - loads eBPF programs and demonstrates comm. via eBPF maps \
+• `webroot` - a lightweight web UI
+
+What stands out is the use of **eBPF for network visibility**.
+
+Not just allowing or blocking traffic, you can: \
+
+• observe connections **at the syscall or socket level** (who is talking to whom, not just packets)\
+• track events in real time without copying packets to user space\
+• correlate network activity with **process context (PID, binary, container, etc.)**\
+• apply filtering and aggregation **directly in kernel space** before data is transferred
+
+It’s still early in development and we can expect more stuff to come in the near future, but it’s a neat tool for anyone interested in privacy, networking or systems-level behavior.
+
+A good reminder:
+
+Most systems are doing more in the background than we realize.
+
+Sometimes it’s worth taking a look. 👀
+
+<div
+  style={{
+    color: "#22c55e",
+    textShadow: "0 0 6px rgba(34,197,94,0.75), 0 0 14px rgba(34,197,94,0.5)",
+  }}
+>
+  #eBPF #networking #linux #privacy #observability
+</div>
